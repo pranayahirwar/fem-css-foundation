@@ -1,0 +1,209 @@
+/*
+#################################################
+# DESKTOP FIRST DESIGN
+#################################################
+*/
+
+@font-face {
+  font-family: "InterRegular";
+  src: url("../fonts/static/Inter-Regular.ttf");
+}
+
+@font-face {
+  font-family: "InterBold";
+  src: url("../fonts/static/Inter-Bold.ttf");
+}
+
+/* 
+The :root pseudo-class in CSS is used to select the root element of a document.
+In an HTML document, the root element is the <html> tag.
+
+In CSS, there are several types of selectors that you can use to apply styles to HTML 
+elements. Here are some of them:
+
+Type selectors: These select elements based on their HTML type. For example, div, p, a, etc.
+
+Class selectors: These select elements based on their class attribute. For example, .my-class.
+
+ID selectors: These select a single element based on its ID attribute. For example, #my-id.
+
+Attribute selectors: These select elements based on their attributes. For example, [type="text"].
+
+Pseudo-class selectors: These select elements based on their state or certain characteristics 
+that can't be targeted with other types of selectors. For example, :hover, :focus, :active, 
+:visited, :first-child, :last-child, :nth-child(n), :root, etc.
+
+A pseudo-class is a keyword added to a selector that specifies a special state of the 
+selected element(s). For example, :hover can be used to change a button's color when 
+the user's pointer hovers over it.
+
+The :root pseudo-class used in your CSS file selects the root element of the document. 
+In HTML, the root element is the <html> tag. It's often used to define 
+global CSS variables.
+*/
+:root {
+  --color-primary: #ff7b54;
+  --color-primary-text: #ffffff;
+  --color-secondary-text: #000000;
+
+  --font-family-inter-regular: "InterRegular", sans-serif;
+  --font-family-inter-bold: "InterBold", sans-serif;
+  --color-button-primary-bg: var(--color-primary-text);
+  --color-button-primary-text: var(--color-primary);
+
+  --color-button-secondary-bg: var(--color-primary-text);
+  --color-button-secondary-text: var(--color-primary);
+}
+
+/* border box model: https://css-tricks.com/box-sizing/ */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/*
+  #################################################
+  # BODY STYLES
+  #################################################
+  */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-primary);
+  color: var(--color-primary-text);
+  font-family: var(--font-family-inter-bold);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+/* 
+#################################################
+# HEADER STYLES
+#################################################
+*/
+
+.menu-logo,
+.close-logo {
+  /* display none remove things from dom. Also we dont want this to be displayed in 
+  in desktop view. */
+  display: none;
+}
+
+.header {
+  /* border: 3px solid red; */
+  /* padding: 0 60px; */
+  padding: 20px 60px 0px 60px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 36px;
+  grid-template-rows: 1fr;
+  align-items: center;
+
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.nav {
+  display: inline-block;
+  justify-self: end;
+}
+
+.nav__list {
+  list-style: none;
+  display: flex;
+  /* margin-right: 26px; */
+  /* flex-flow: row; */
+}
+
+.nav__list-item {
+  margin-right: 36px;
+}
+
+/*
+#################################################
+# MENU LOGO FOR MOBILE DESIGN
+#################################################
+*/
+
+@media (max-width: 650px) {
+  .header {
+    grid-template-columns: 33px 1fr 36px;
+    padding: 20px 60px 0px 60px;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .menu-logo {
+    /* If this class present in element, it will be showned to the user.*/
+    /* If removed from element it remove the element from DOM. Because by default */
+    /* display: none */
+    display: inline;
+  }
+
+  .menu-logo path {
+    fill: var(--color-primary-text);
+  }
+
+  .close-logo path {
+    fill: var(--color-primary-text);
+  }
+
+  /* MEDIA QUERIES RELATED TO NAV BAR */
+  /* moving .nav and .nav_list to below close-logo result in disappearance of
+     our nav list when clicked on hamburger button, BUT WHY FIND IT? */
+
+  .nav {
+    position: absolute;
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    background-color: var(--color-primary);
+    width: 100vw;
+    height: 100vh;
+    top: 95px;
+    /* -120% tell nav to move outside of visible view */
+    left: -120%;
+  }
+
+  .nav__list {
+    /* border: 2px solid red; */
+    flex-direction: column;
+    font-size: 60px;
+    /* justify-content: space-around; */
+    align-items: flex-start;
+    row-gap: 60px;
+  }
+
+  .show-nav-list {
+    /* MENU LOGO IS CLICKED, WE CAN SHOW NAV */
+    /* NAV DEFAULT POSITION IS HIDDEND BECAUSE OF .NAV AND LEFT:-120%; PROPERTY */
+    left: 0;
+  }
+
+  .remove-menu-logo-from-dom {
+    display: none;
+  }
+
+  .show-close-logo {
+    display: inline;
+  }
+
+  .body-no-scroll {
+    overflow: hidden;
+  }
+}
